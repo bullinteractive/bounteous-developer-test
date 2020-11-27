@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Loader } from "../utilities/Loader";
 import { NoResults } from "../utilities/NoResults";
+import { SearchResult } from "./SearchResult";
 
 const SearchForm = (endpoint) => {
 
@@ -12,6 +13,7 @@ const SearchForm = (endpoint) => {
   const [ searchStatus, setStatus ] = useState(false);
   
   useEffect(() => {
+
     const getTVShowNames = async() => {
       
       setLoading(true);
@@ -43,27 +45,13 @@ const SearchForm = (endpoint) => {
 
   }, [searchQuery]);
 
-  const orderedResults = searchResults && searchResults.sort((a, b) => a.show.name > b.show.name ? 1 : -1);
+  const orderedResults = searchResults && searchResults
+    .sort((a, b) => a.show.name > b.show.name ? 1 : -1);
 
-  const showList = orderedResults.length > 0 && orderedResults.map(result => {
-    
-    const {id, name, image } = result.show;
-    
-    if(image) {
-      
-      const { medium: thumbnail } = image;
-      
-      return (
-        <div key={id}>
-          {name}
-          <img src={thumbnail} loading="lazy" alt={`A thumbnail for the show ${name}`} />
-        </div>
-      )
-
-    }
-
-    return []
-
+  // eslint-disable-next-line array-callback-return
+  const showList = orderedResults.length > 0 && orderedResults.map((result, index) => {
+    const { image } = result.show;
+    if(image && image !== null) return <SearchResult key={index} result={result} />
   });
 
   const handleChange = e => {
