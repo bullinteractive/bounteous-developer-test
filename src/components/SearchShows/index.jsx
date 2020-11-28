@@ -89,6 +89,7 @@ const SearchShows = ({endpoint}) => {
           <ButtonComponent 
             onClick={printToConsole} 
             disabled={!showList}
+            type="submit"
           >Print Shows</ButtonComponent>
           
         </form>
@@ -97,7 +98,7 @@ const SearchShows = ({endpoint}) => {
 
       <div className="results-container">
         
-        {isLoading 
+        { isLoading 
           ? <Loader className="loader"/> 
           : (searchQuery.length > 0 && !showList) && 
             <NoResultsComponent />
