@@ -1,12 +1,25 @@
 import React from "react";
 import styled from 'styled-components'
 
-export const InputComponent = ({type, placeholder, onChange,value, name, id, autoComplete, disabled}) => {
+export const InputComponent = ({type, placeholder, label, onChange,value, name, id, autoComplete, disabled}) => {
   return (
+    <>
+    <Label for={id}>{label}</Label>
     <Input type={type} placeholder={placeholder} onChange={onChange} value={value} name={name} id={id} autoComplete={autoComplete} disabled={disabled} />
+  </>
   )
  }
 
+const Label = styled.label`
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+`;
 const Input = styled.input`
   background-color: transparent;
   border: solid 2px #8ee7ff;

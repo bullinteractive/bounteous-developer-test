@@ -79,6 +79,7 @@ const SearchShows = ({endpoint}) => {
           <InputComponent 
             type="text" 
             placeholder="Search for TV show by name" 
+            label="Search:"
             onChange={handleChange} 
             value={searchQuery} 
             name="showName"
