@@ -1,9 +1,9 @@
 import React from "react";
 import styled from 'styled-components'
 
-export const InputComponent = ({type, placeholder, onChange,value, name, id, autocomplete, disabled}) => {
+export const InputComponent = ({type, placeholder, onChange,value, name, id, autoComplete, disabled}) => {
   return (
-    <Input type={type} placeholder={placeholder} onChange={onChange} value={value} name={name} id={id} autocomplete={autocomplete} disabled={disabled} />
+    <Input type={type} placeholder={placeholder} onChange={onChange} value={value} name={name} id={id} autoComplete={autoComplete} disabled={disabled} />
   )
  }
 
