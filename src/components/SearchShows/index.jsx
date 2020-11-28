@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Loader } from "../utilities/Loader";
-import { NoResults } from "../utilities/NoResults";
-import { SearchResult } from "./SearchResult";
+import './index.css';
+import { Loader } from "../../utilities/Loader";
+import { NoResultsComponent } from "../../utilities/NoResults";
+import { SearchResult } from "./components/SearchResults/SearchResult";
+import { ButtonComponent } from "./components/SearchForm/SearchFormButton";
+import { InputComponent } from "./components/SearchForm/SearchFormInput";
 
-const SearchForm = (endpoint) => {
+const SearchShows = ({endpoint}) => {
 
   const [ searchQuery, setSearchQuery ] = useState("");
   const [ searchResults, setSearchResults ] = useState([]);
@@ -48,7 +51,6 @@ const SearchForm = (endpoint) => {
   const orderedResults = searchResults && searchResults
     .sort((a, b) => a.show.name > b.show.name ? 1 : -1);
 
-  // eslint-disable-next-line array-callback-return
   const showList = orderedResults.length > 0 && orderedResults.map((result, index) => {
     const { image } = result.show;
     if(image && image !== null) return <SearchResult key={index} result={result} />
@@ -56,10 +58,9 @@ const SearchForm = (endpoint) => {
 
   const handleChange = e => {
     const { value } = e.target;
-    setEndpoint(value);
+    setEndpoint(endpoint + value);
     setSearchQuery(value);
   };
-
 
   const printToConsole = (e) => {
     e.preventDefault();
@@ -67,34 +68,48 @@ const SearchForm = (endpoint) => {
   };
   
   return (
-    <>
-      <form action={searchEndpoint} >
-        <input 
-          type="text" 
-          placeholder="Search for TV show by name" 
-          onChange={handleChange} 
-          value={searchQuery} 
-          name="showName"
-          id="showName"
-          autoComplete="off"
-        />
-        <button type="submit" 
-          onClick={printToConsole} 
-          disabled={!showList}
-        >Print Shows</button>
+    <div className="main-container">
+      
+      <div className="form-container">
         
-      </form>
+        <h1 className="form-title">Bounteous JavaScript Coding Challenge</h1>
+        
+        <form action={`${searchEndpoint}`} className="show-search-form">
+          
+          <InputComponent 
+            type="text" 
+            placeholder="Search for TV show by name" 
+            onChange={handleChange} 
+            value={searchQuery} 
+            name="showName"
+            id="showName"
+            autoComplete="off"
+          />
+          
+          <ButtonComponent 
+            onClick={printToConsole} 
+            disabled={!showList}
+          >Print Shows</ButtonComponent>
+          
+        </form>
 
-      {isLoading 
-        ? <Loader /> 
-        : (searchQuery.length > 0 && !showList) && 
-          <NoResults />
-      }
+      </div>
 
-      { ( !hasError && searchQuery.length ) ? showList : searchStatus }
+      <div className="results-container">
+        
+        {isLoading 
+          ? <Loader className="loader"/> 
+          : (searchQuery.length > 0 && !showList) && 
+            <NoResultsComponent />
+        }
 
-    </>
+        { ( !hasError && searchQuery.length ) ? showList : searchStatus }
+
+      </div>
+
+    </div>
+
   )
 }
 
-export default SearchForm;
+export default SearchShows;

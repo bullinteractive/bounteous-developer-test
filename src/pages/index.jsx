@@ -1,14 +1,13 @@
 import React from "react";
-import SearchForm from "../components/SearchForm";
+import SearchShows from "../components/SearchShows";
 
 const Home = () => {
 
-  const endpoint = 'http://api.tvmaze.com/search/shows?q';
+  const endpoint = 'http://api.tvmaze.com/search/shows?q=';
 
   return (
     <div>
-      <h1>Home</h1>
-      <SearchForm endpoint={endpoint} />
+      <SearchShows endpoint={endpoint} />
     </div>
   )
 }
